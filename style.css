@@ -1,0 +1,36 @@
+body {
+    font-family: Arial;
+    text-align: center;
+    background-color: #deffe6;
+}
+
+h1 {
+    font-size: 250%;
+    text-align: center;
+    color: #1c993d;
+}
+
+p {
+    color: #26c750;
+    width: 50%;
+    margin: 20px auto;
+    font-size: 125%;
+}
+
+button {
+    background-color: #188033;
+    border: solid 2px white;
+    color: white;
+    font-size: 125%;
+    outline: solid 2px #188033;
+    display: block;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: #26c750;
+}
+
+#answers {
+    margin: 0 auto;
+}
