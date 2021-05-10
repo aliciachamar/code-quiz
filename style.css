@@ -2,12 +2,32 @@ body {
     font-family: Arial;
     text-align: center;
     background-color: #deffe6;
+    width: 100%;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    width: 100%;
+    background-color: #18612a;
+    justify-content: space-around;
 }
 
 h1 {
     font-size: 250%;
     text-align: center;
     color: #1c993d;
+    display: inline;
+    text-shadow: -1px -1px 0px rgba(255,255,255,0.3), 1px 1px 0px rgba(0,0,0,0.8);
+}
+
+h2 {
+    font-size: 150%;
+    text-align: center;
+    color: white;
+    border: solid 2px white;
+    outline: solid 2px #188033;
+    display: inline;
 }
 
 p {
@@ -24,13 +44,15 @@ button {
     font-size: 125%;
     outline: solid 2px #188033;
     display: block;
-    margin: 10px;
+    margin: 20px auto;
 }
 
 button:hover {
     background-color: #26c750;
 }
 
-#answers {
-    margin: 0 auto;
+#scores {
+    display: inline;
+    margin: 0;
+    
 }

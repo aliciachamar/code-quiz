@@ -1,16 +1,33 @@
 var $questionText = document.querySelector("#question");
 
-var $answers = document.querySelector("#answers");
 var $startButton = document.createElement("button");
 $startButton.textContent = "START";
-$answers.appendChild($startButton);
+$questionText.appendChild($startButton);
+
+function gameTimer () {
+    time--;
+    $timerDisplay.textContent = "Timer: " + time;
+    if (time === 0) {
+       clearInterval(timer); 
+       endGame("Game over!");
+    }
+}
+
+var timer = setInterval(gameTimer, 1000);
+
+var time = 75;
+
+var $timerDisplay = document.querySelector("#timerDisplay");
 
 var $answer1btn = document.createElement("button");
 var $answer2btn = document.createElement("button");
 var $answer3btn = document.createElement("button");
 var $answer4btn = document.createElement("button");
+var buttonsArr = [$answer1btn, $answer2btn, $answer3btn, $answer4btn];
 
-$startButton.addEventListener("click", codeQuiz);
+var index = 0;
+
+$startButton.addEventListener("click", playGame);
 
 var questions = [
     {
@@ -20,16 +37,18 @@ var questions = [
         "Booleans",
         "Alerts",
         "Numbers"
-        ]
+        ],
+        correctAnswerText: "Alerts"
     },
     {
         text: "The condition in an if/else statement is enclosed within:",
         answers: [
             "Quotes",
-            "Curly brackets",
+            "Parentheses",
             "Square brackets",
-            "Parentheses"
-        ]
+            "Curly brackets"
+        ],
+        correctAnswerText: "Parentheses"
     },
     {
         text: "Arrays in JavaScript can be used to store:",
@@ -38,16 +57,18 @@ var questions = [
             "Other arrays",
             "Booleans",
             "All of the above"
-        ]
+        ],
+        correctAnswerText: "All of the above"
     },
     {
         text: "String values must be enclosed within _____ when being assigned to variables.",
         answers: [
             "Commas",
             "Curly brackets",
-            "Parentheses",
-            "Quotes"
-        ]
+            "Quotes",
+            "Parentheses"
+        ],
+        correctAnswerText: "Quotes"
     },
     {
         text: "A very useful tool used during development and debugging for printing content to the debugger is:",
@@ -56,20 +77,53 @@ var questions = [
             "Terminal/bash",
             "For loops",
             "Console log"
-        ]
+        ],
+        correctAnswerText: "Console log"
     }
 ]
 
-const dummyText = "What about this?";
+function playGame() {
+    $startButton.style.display = "none";
+    nextQuestion();
+}
 
-function codeQuiz() {
-    for (let i = 0; i < questions.length; i++) {
-        $questionText.textContent = questions[i].text;
-        $startButton.style.display = "none";
-        $questionText.append($answer1btn, $answer2btn, $answer3btn, $answer4btn);
-        $answer1btn.textContent = questions[i].answers[0];
-        $answer2btn.textContent = questions[i].answers[1];
-        $answer3btn.textContent = questions[i].answers[2];
-        $answer4btn.textContent = questions[i].answers[3];
+function nextQuestion() {
+    $questionText.textContent = questions[index].text;
+    $questionText.append($answer1btn, $answer2btn, $answer3btn, $answer4btn);
+    for (let j = 0; j < buttonsArr.length; j++) {
+        buttonsArr[j].textContent = questions[index].answers[j];
+        buttonsArr[j].addEventListener("click", checkAnswer);
+    }
+    index++;
+}
+
+function checkAnswer(event) {
+    var element = event.target;
+    
+    if (element.textContent === questions[index-1].correctAnswerText) {
+        console.log("Right");
+    } else {
+        console.log("Wrong");
+    }
+    if (index < 5) {
+        nextQuestion();
+    } else {
+        endGame("Finished!");
     }
 }
+
+function endGame(endingText) {
+    $questionText.textContent = endingText;
+    if (time === 0) {
+        $questionText.textContent = "Game over! Play again to get a score.";
+    } else {
+        var userScore = time;
+    }
+    displayScores();
+}
+
+function displayScores() {
+    
+}
+
+
