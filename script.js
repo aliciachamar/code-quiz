@@ -1,23 +1,9 @@
 var $questionText = document.querySelector("#question");
-
 var $startButton = document.createElement("button");
-$startButton.textContent = "START";
-$questionText.appendChild($startButton);
-
-function gameTimer () {
-    time--;
-    $timerDisplay.textContent = "Timer: " + time;
-    if (time === 0) {
-       clearInterval(timer); 
-       endGame("Game over!");
-    }
-}
-
-var timer = setInterval(gameTimer, 1000);
+var $timerDisplay = document.querySelector("#timerDisplay");
+var $highscoreList = document.querySelector("#highscores");
 
 var time = 75;
-
-var $timerDisplay = document.querySelector("#timerDisplay");
 
 var $answer1btn = document.createElement("button");
 var $answer2btn = document.createElement("button");
@@ -26,8 +12,6 @@ var $answer4btn = document.createElement("button");
 var buttonsArr = [$answer1btn, $answer2btn, $answer3btn, $answer4btn];
 
 var index = 0;
-
-$startButton.addEventListener("click", playGame);
 
 var questions = [
     {
@@ -82,8 +66,27 @@ var questions = [
     }
 ]
 
+var userScore; 
+
+var existing = localStorage.getItem("highscores");
+
+var scoreHistory;
+
+$startButton.textContent = "START";
+$questionText.appendChild($startButton);
+$startButton.addEventListener("click", playGame);
+
 function playGame() {
     $startButton.style.display = "none";
+    function gameTimer () {
+        time--;
+        $timerDisplay.textContent = "Timer: " + time;
+        if (time === 0) {
+           clearInterval(timer); 
+           endGame();
+        }
+    }
+    var timer = setInterval(gameTimer, 1000);
     nextQuestion();
 }
 
@@ -100,30 +103,52 @@ function nextQuestion() {
 function checkAnswer(event) {
     var element = event.target;
     
-    if (element.textContent === questions[index-1].correctAnswerText) {
-        console.log("Right");
-    } else {
+    if (element.textContent !== questions[index-1].correctAnswerText) {
         console.log("Wrong");
+        time -= 10;
+        index -= 2;
+        nextQuestion();
+    } else {
+        console.log("Right");
+        
     }
     if (index < 5) {
         nextQuestion();
     } else {
-        endGame("Finished!");
+        endGame();
     }
 }
 
-function endGame(endingText) {
-    $questionText.textContent = endingText;
+function endGame() {
     if (time === 0) {
-        $questionText.textContent = "Game over! Play again to get a score.";
+        $questionText.textContent = "Time is up! Play again to get a score.";
     } else {
-        var userScore = time;
+        userScore = time;
+        userInitials = prompt("Please enter your initials.");
+        var scoreObj = {
+            score: userScore,
+            initials: userInitials
+        };
+        if (existing) {
+            existing = JSON.parse(localStorage.getItem("highscores"));
+            existing.push(scoreObj);
+            localStorage.setItem("highscores", JSON.stringify(existing));
+        } else {
+            scoreObj = JSON.stringify([scoreObj]);
+            localStorage.setItem("highscores", scoreObj);
+        }
     }
     displayScores();
 }
 
 function displayScores() {
-    
+    $questionText.textContent = "";
+    scoreHistory = localStorage.getItem("highscores"); 
+    for (let i = 0; i < scoreHistory.length; i++) {
+        var scoreListing = document.createElement("li");
+        $highscoreList.appendChild(scoreListing);
+        scoreListing.textContent = scoreHistory[i];
+    };
 }
 
 
