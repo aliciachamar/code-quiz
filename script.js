@@ -2,6 +2,7 @@ var $questionText = document.querySelector("#question");
 var $startButton = document.createElement("button");
 var $timerDisplay = document.querySelector("#timerDisplay");
 var $highscoreList = document.querySelector("#highscores");
+// var $highscoreDisplay = document.querySelector("#scores");
 
 var time = 75;
 
@@ -64,7 +65,7 @@ var questions = [
         ],
         correctAnswerText: "Console log"
     }
-]
+];
 
 var userScore; 
 
@@ -138,17 +139,12 @@ function endGame() {
             localStorage.setItem("highscores", scoreObj);
         }
     }
-    displayScores();
-}
-
-function displayScores() {
-    $questionText.textContent = "";
-    scoreHistory = localStorage.getItem("highscores"); 
+    $questionText.textContent = "High Scores";
+    $questionText.style.textDecoration = "underline";
+    scoreHistory = JSON.parse(localStorage.getItem("highscores"));
     for (let i = 0; i < scoreHistory.length; i++) {
-        var scoreListing = document.createElement("li");
-        $highscoreList.appendChild(scoreListing);
-        scoreListing.textContent = scoreHistory[i];
+        var $scoreListing = document.createElement("li");
+        $highscoreList.appendChild($scoreListing);
+        $scoreListing.textContent = scoreHistory[i].initials + ": " + scoreHistory[i].score;
     };
 }
-
-

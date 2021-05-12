@@ -10,7 +10,7 @@ header {
     display: flex;
     width: 100%;
     background-color: #18612a;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 h1 {
@@ -53,6 +53,12 @@ button:hover {
 
 #scores {
     display: inline;
-    margin: 0;
-    
+    margin: 0;   
+}
+
+ul {
+    list-style-type: none;
+    font-weight: bold;
+    color: #18612a;
+    padding: 0;
 }
