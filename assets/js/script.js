@@ -2,7 +2,6 @@ var $questionText = document.querySelector("#question");
 var $startButton = document.createElement("button");
 var $timerDisplay = document.querySelector("#timerDisplay");
 var $highscoreList = document.querySelector("#highscores");
-// var $highscoreDisplay = document.querySelector("#scores");
 
 var time = 75;
 
@@ -68,6 +67,7 @@ var questions = [
 ];
 
 var userScore; 
+var userInitials;
 
 var existing = localStorage.getItem("highscores");
 
@@ -77,16 +77,17 @@ $startButton.textContent = "START";
 $questionText.appendChild($startButton);
 $startButton.addEventListener("click", playGame);
 
+function gameTimer () {
+    time--;
+    $timerDisplay.textContent = "Timer: " + time;
+    if (time === 0) {
+       clearInterval(timer); 
+       endGame();
+    }
+}
+
 function playGame() {
     $startButton.style.display = "none";
-    function gameTimer () {
-        time--;
-        $timerDisplay.textContent = "Timer: " + time;
-        if (time === 0) {
-           clearInterval(timer); 
-           endGame();
-        }
-    }
     var timer = setInterval(gameTimer, 1000);
     nextQuestion();
 }
@@ -110,8 +111,7 @@ function checkAnswer(event) {
         index -= 2;
         nextQuestion();
     } else {
-        console.log("Right");
-        
+        console.log("Right"); 
     }
     if (index < 5) {
         nextQuestion();
@@ -123,6 +123,7 @@ function checkAnswer(event) {
 function endGame() {
     if (time === 0) {
         $questionText.textContent = "Time is up! Play again to get a score.";
+        playGame();
     } else {
         userScore = time;
         userInitials = prompt("Please enter your initials.");
@@ -139,6 +140,7 @@ function endGame() {
             localStorage.setItem("highscores", scoreObj);
         }
     }
+    $timerDisplay.style.display = "none";
     $questionText.textContent = "High Scores";
     $questionText.style.textDecoration = "underline";
     scoreHistory = JSON.parse(localStorage.getItem("highscores"));
@@ -147,4 +149,4 @@ function endGame() {
         $highscoreList.appendChild($scoreListing);
         $scoreListing.textContent = scoreHistory[i].initials + ": " + scoreHistory[i].score;
     };
-}
+}   
