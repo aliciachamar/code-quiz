@@ -6,7 +6,7 @@ When the user answers a question correctly, the game advances to the next questi
 
 After the user answers all the questions, they are given a score and prompted for their initials to store the score in localStorage. All scores from previous users (as well as the score the user just received) are then displayed from localStorage. 
 
-URL: https://aliciachamar.github.io/code-quiz/index.html
+URL: https://aliciachamar.github.io/code-quiz-plus-scores/
 
-![Screenshot]()
+![Screenshot](https://raw.githubusercontent.com/aliciachamar/code-quiz-plus-scores/main/assets/images/screenshot.PNG)
 
