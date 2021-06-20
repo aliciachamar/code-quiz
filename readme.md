@@ -1,4 +1,4 @@
-Code
+Code Quiz
 
 This page provides the user with a timed quiz game on coding questions. 
 
