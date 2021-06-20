@@ -1,3 +1,5 @@
+Code
+
 This page provides the user with a timed quiz game on coding questions. 
 
 The user is given five multiple choice questions and their score is determined by how many seconds are left on the timer when they finish answering all the questions correctly. 
