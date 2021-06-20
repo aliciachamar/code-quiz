@@ -8,7 +8,7 @@ When the user answers a question correctly, the game advances to the next questi
 
 After the user answers all the questions, they are given a score and prompted for their initials to store the score in localStorage. All scores from previous users (as well as the score the user just received) are then displayed from localStorage.
 
-Technologies used: HTML, CSS, JavaScript.
+Technologies used: HTML, CSS, JavaScript. 
 
 URL: https://aliciachamar.github.io/code-quiz-plus-scores/
 
